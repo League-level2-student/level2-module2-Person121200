@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /*
@@ -16,14 +17,28 @@ import javax.swing.JPanel;
  * GOAL: Create your own custom pop-up messages
  */
 public class LeagueOptionPane {
+	 JFrame frame;
+	 JPanel panel;	
+	 JLabel label;
+	 JLabel image;
 	
-	public static void showMessageDialog(String message) {
+	
+	public void showMessageDialog(String message) {
 		// 1. Open example.png and make a GUI that looks like that
 		//    The message parameter is what we want to show on our pop-up
-		
+		frame = new JFrame("Message");
+		message = "The League is the Best";
+		label = new JLabel(message);
+		panel = new JPanel();
+		image = new JLabel(loadImage("league.png"));
+		panel.add(image);
+		panel.add(label);
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.pack();
 		
 		// 2. Uncomment the line of code below. It sets the location of our frame to the center of the screen
-		//frame.setLocationRelativeTo(null);
+		frame.setLocationRelativeTo(null);
 	}
 	
 	// 3. Call this method in the Runner class
@@ -31,13 +46,49 @@ public class LeagueOptionPane {
 
 	// 4. Create another showMessageDialog() method that lets us also choose the Message and Title 
 	//    2 String parameters (one for the message and one for the title)
-	
+	public void showMessageDialog(String message, String title) {
+		title = JOptionPane.showInputDialog("What title would you like?");
+		message = JOptionPane.showInputDialog("What message would you like?");
+		frame = new JFrame(title);
+		label = new JLabel(message);
+		panel = new JPanel();
+		image = new JLabel(loadImage("league.png"));
+		panel.add(image);
+		panel.add(label);
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.pack();
+		
+		
+	}
 	// 5. Call this method in the Runner class
 	
 	
 	// 6. Create another showMessageDialog() method that lets us choose the Message, Title, and Image
 	//    3 String parameters (one for the message, one for the title, and one for the fileName)
-	
+	public void showMessageDialog(String message, String title, String leagueImage) {
+		message = JOptionPane.showInputDialog("What would you like your message to be?");
+		title = JOptionPane.showInputDialog("What would you like your title to be?");
+		leagueImage = JOptionPane.showInputDialog("What would you like your league icon to be? (Dark or Light)");
+		if(leagueImage.equalsIgnoreCase("dark")) {
+			leagueImage = "leagueDark.png";
+		}
+		if(leagueImage.equalsIgnoreCase("light")) {
+			leagueImage = "league.png";
+		}
+		else {
+			JOptionPane.showMessageDialog(null, message);
+		}
+		frame = new JFrame(title);
+		label = new JLabel(message);
+		panel = new JPanel();
+		image = new JLabel(loadImage(leagueImage));
+		panel.add(image);
+		panel.add(label);
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.pack();
+	}
 	// 7. Call this method in the Runner class
 	
 	// CHALLENGE: 
@@ -66,5 +117,7 @@ public class LeagueOptionPane {
 			return null;
 		}
 	}
+
+
 	
 }

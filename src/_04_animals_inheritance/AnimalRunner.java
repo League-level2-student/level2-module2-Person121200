@@ -1,3 +1,4 @@
+
 package _04_animals_inheritance;
 
 /*
