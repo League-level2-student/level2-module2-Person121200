@@ -1,17 +1,23 @@
 package _08_LeagueSnake;
 
+import java.awt.Color;
+
 import processing.core.PApplet;
 
 public class LeagueSnake extends PApplet {
-    static final int WIDTH = 800;
-    static final int HEIGHT = 800;
+    static final int WIDTH = 500;
+    static final int HEIGHT = 500;
     
     /*
      * Game variables
      * 
      * Put all the game variables here.
      */
-    
+    Segment snakeHead;
+    int foodX;
+    int foodY;
+    int direction;
+    int food;
 
     
     /*
@@ -19,18 +25,25 @@ public class LeagueSnake extends PApplet {
      * 
      * These methods are called at the start of the game.
      */
+
     @Override
     public void settings() {
-        
+        size(WIDTH, HEIGHT);
     }
 
     @Override
     public void setup() {
-        
+       snakeHead = new Segment(10, 10);
+       frameRate(20);
+       dropFood();
     }
 
     void dropFood() {
         // Set the food in a new random location
+    	foodX = ((int)random(50)*10);
+    	foodY = ((int)random(50)*10);
+
+
         
     }
 
@@ -42,16 +55,24 @@ public class LeagueSnake extends PApplet {
 
     @Override
     public void draw() {
-        
+        background(0, 0, 0);
+        drawFood();
+        move();
+        drawSnake();
     }
 
     void drawFood() {
         // Draw the food
+    	fill(0, 255, 0);
+    	rect(foodX, foodY, 10, 10);
         
     }
 
     void drawSnake() {
         // Draw the head of the snake followed by its tail
+    	fill(255, 0, 0);
+    	rect(snakeHead.x, snakeHead.y, 10, 10);
+    	
     }
 
     void drawTail() {
@@ -86,29 +107,71 @@ public class LeagueSnake extends PApplet {
     @Override
     public void keyPressed() {
         // Set the direction of the snake according to the arrow keys pressed
-        
+        if(key == CODED) {
+        	if(keyCode == UP) {
+        		direction = keyCode;
+        	}
+        }
+        if(key == CODED) {
+        	if(keyCode == DOWN) {
+        		direction = keyCode;
+        	}
+        }
+        if(key == CODED) {
+        	if(keyCode == LEFT) {
+        		direction = keyCode;
+        	}
+        }
+        if(key == CODED) {
+        	if(keyCode == RIGHT) {
+        		direction = keyCode;
+        	}
+        }
     }
 
     void move() {
         // Change the location of the Snake head based on the direction it is moving.
 
-        /*
+        
         if (direction == UP) {
             // Move head up
+        	if(0 < snakeHead.y) {
+        		snakeHead.y -=1;
+        	}
             
         } else if (direction == DOWN) {
+        	if(snakeHead.y < 500) {
+        		snakeHead.y +=1;
+        	}
             // Move head down
                 
         } else if (direction == LEFT) {
+        	if(0< snakeHead.x) {
+        		snakeHead.x -=1;
+        	}
             
         } else if (direction == RIGHT) {
-            
+            if(snakeHead.x < 500) {
+            	snakeHead.y +=1;
+            }
         }
-        */
+        checkBoundaries();
     }
 
     void checkBoundaries() {
         // If the snake leaves the frame, make it reappear on the other side
+        if (0 >= snakeHead.y) {
+        	snakeHead.y = 490;
+        }
+        else if (snakeHead.y >= 500) {
+        	snakeHead.y = 10;
+        }
+        else if(0>= snakeHead.x) {
+        	snakeHead.x = 490;
+        }
+        else if(snakeHead.x <= 500) {
+        	snakeHead.x = 10;
+        }
         
     }
 
